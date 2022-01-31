@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "c4f53bf4-0118-4f13-ac55-939930038660",
+		"name": "OSINT Hack",
+		"description": "A collection of API calls that show the use of each operation to report data in the OSINT Hack.\n\n## Pre-reqs\n\nSelect the collection and replace the \"Ocp-Apim-Subscription-Key\" value with the subscription key that you get from your profile from the OSINT Hack API Developers Portal.\n\n## Usage\n\nYou can use the operations as they are once the subscription key has been set, and if you don't edit them, the operations will create entries for HMS Massive. You can broadly use them in this order, but if you remove an Entity, add it back in again before adding a location for example:\n\n| **Operation** | **Effect** |\n| --- | --- |\n| upsertEntity (minimum data) | Add (or update if it already exists) an entity with the minimal data possible, default = HMS Massive. |\n| upsertEntity (more data) | Add (or update if it already exists) an entity with more than the minimum data. |\n| getEntities | Returns all existing entities for your team, which should include the entity created above. |\n| getEntity | Returns a specific entity e.g. HMS Massive. |\n| renameEntity | Rename an entity e.g. HMS Massive to HMS Massiver. |\n| removeEntity | Remove an entity e.g. HMS Massiver. |\n| insertLocation | Add a location, i.e. a latitude and longitude, for an entity. |\n| getLocation | Get the locations for an entity. |\n| getLocations | Get all locations. |\n| removeLocation | Remove a location by location id. |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "upsertEntity (minimum data)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"entity_name\": \"HMS Massive\",\r\n    \"data\": {\r\n        \"flagging\": {\r\n            \"value\": \"GBR\",\r\n            \"source\": \"https://twitter.com/HMS_Massive\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/entities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"entities"
+					]
+				},
+				"description": "Add (or update if it already exists) an entity, default = HMS Massive."
+			},
+			"response": []
+		},
+		{
+			"name": "upsertEntity (more data)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"entity_name\": \"HMS Massive\",\r\n    \"data\": {\r\n            \"Vessel Type - Detailed\": {\r\n                \"value\": \"Naval\",\r\n                \"source\": \"https://developer.janes.com/api\"\r\n            },\r\n            \"Home Port\": {\r\n                \"value\": \"Plymouth\",\r\n                \"source\": \"https://developer.janes.com/api\"\r\n            },\r\n            \"Propulsion Type\": {\r\n                \"value\": \"Nuclear\",\r\n                \"source\": \"https://marinetraffic.com/api\"\r\n            },\r\n            \"Builder\": {\r\n                \"value\": \"Thales\",\r\n                \"source\": \"https://developer.esri.com/api\"\r\n            }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/entities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"entities"
+					]
+				},
+				"description": "Add (or update if it already exists) an entity, default = HMS Massive."
+			},
+			"response": []
+		},
+		{
+			"name": "getEntities",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/entities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"entities"
+					]
+				},
+				"description": "Returns all existing entities for your team."
+			},
+			"response": []
+		},
+		{
+			"name": "getEntity",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/entities/HMS%20Massive",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"entities",
+						"HMS%20Massive"
+					]
+				},
+				"description": "Returns a specific entity e.g. HMS Massive."
+			},
+			"response": []
+		},
+		{
+			"name": "renameEntity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"existing_entity_name\": \"HMS Massive\",\r\n    \"new_entity_name\": \"HMS Massiver\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/entities/rename",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"entities",
+						"rename"
+					]
+				},
+				"description": "Rename an entity e.g. HMS Massive to HMS Massiver."
+			},
+			"response": []
+		},
+		{
+			"name": "removeEntity",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/entities/HMS%20Massiver",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"entities",
+						"HMS%20Massiver"
+					]
+				},
+				"description": "Remove an entity e.g. HMS Massiver."
+			},
+			"response": []
+		},
+		{
+			"name": "insertLocation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"entity_name\": \"HMS Massive\",\r\n    \"datetime\": \"2022-01-31T13:33:56.111Z\",\r\n    \"type\": \"spotted\",\r\n    \"latitude\": 6.516037,\r\n    \"longitude\": 113.259455\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/locations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"locations"
+					]
+				},
+				"description": "Add a location, i.e. a latitude and longitude, for an entity."
+			},
+			"response": []
+		},
+		{
+			"name": "getLocation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/locations/HMS%20Massive",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"locations",
+						"HMS%20Massive"
+					]
+				},
+				"description": "Get the locations for an entity"
+			},
+			"response": []
+		},
+		{
+			"name": "getLocations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/locations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"locations"
+					]
+				},
+				"description": "Get all locations."
+			},
+			"response": []
+		},
+		{
+			"name": "removeLocation",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/locations/29fe0cfe-5c05-4831-b58f-83c0207bfb02",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"locations",
+						"29fe0cfe-5c05-4831-b58f-83c0207bfb02"
+					]
+				},
+				"description": "Remove a location by location id."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "REPLACE_WITH_SUBSCRIPTION_KEY",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Ocp-Apim-Subscription-Key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://osinthack-api.azure-api.net/osinthack",
+			"type": "string"
+		}
+	]
+}
